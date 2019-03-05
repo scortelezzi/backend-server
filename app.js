@@ -15,7 +15,12 @@ app.use(bodyParser.json());
 //Importar rutas
 var appRoutes = require('./routes/app')
 var usuarioRoutes = require('./routes/usuario')
+var hospitalRoutes = require('./routes/hospital')
+var medicoRoutes = require('./routes/medico')
 var loginRoutes = require('./routes/login')
+var busquedaRoutes = require('./routes/busqueda')
+var imagenesRoutes = require('./routes/imagenes')
+var uploadRoutes = require('./routes/upload')
 
 // Conexion a la BD
 mongoose.connection.openUri('mongodb://localhost:27017/hospitalDB', (err, res) =>{
@@ -24,9 +29,19 @@ mongoose.connection.openUri('mongodb://localhost:27017/hospitalDB', (err, res) =
     console.log('MongoDB corriendo en el puerto 27017: \x1b[32m%s\x1b[0m','ON LINE');
 });
 
+// Server index config
+//var serveIndex = require('serve-index');
+//app.use(express.static(__dirname + '/'))
+//app.use('/uploads', serveIndex(__dirname + '/uploads'));
+
 //Rutas / Middleware
 app.use('/usuario', usuarioRoutes);
+app.use('/hospital', hospitalRoutes);
+app.use('/medico', medicoRoutes);
 app.use('/login', loginRoutes);
+app.use('/busqueda', busquedaRoutes);
+app.use('/upload', uploadRoutes);
+app.use('/img', imagenesRoutes);
 app.use('/', appRoutes);
 
 //Escuchar peticiones
